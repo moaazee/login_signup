@@ -53,7 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Text("${loggedInUser.firstName} ${loggedInUser.lastName}",
+              Text(
+                  "${loggedInUser.firstName} ${loggedInUser.lastName} ' '${loggedInUser.age} 'years'",
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,

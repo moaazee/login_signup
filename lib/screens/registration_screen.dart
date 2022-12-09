@@ -22,6 +22,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // Controller
   final firstNameEditingController = TextEditingController();
   final lastNameEditingController = TextEditingController();
+  final ageEditingController = TextEditingController();
   final emailEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
@@ -75,6 +76,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           prefixIcon: const Icon(Icons.account_circle),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Last Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    //Age field
+    final ageField = TextFormField(
+        autofocus: false,
+        controller: ageEditingController,
+        keyboardType: TextInputType.number,
+        validator: (val) {
+          if (val!.isEmpty) {
+            return ("Age can't be Empty");
+          }
+          return null;
+        },
+        onSaved: (val) {
+          ageEditingController.text = val!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.account_circle),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Your Age: For Example => 19",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -215,6 +240,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     const SizedBox(height: 20),
                     lastNameField,
                     const SizedBox(height: 20),
+                    ageField,
+                    const SizedBox(height: 20),
                     emailField,
                     const SizedBox(height: 20),
                     passwordField,
@@ -286,6 +313,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.lastName = lastNameEditingController.text;
+    userModel.age = ageEditingController.text;
 
     await firebaseFirestore
         .collection("users")
